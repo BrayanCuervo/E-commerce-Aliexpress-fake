@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tienda E-Commerce</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Aliexpress</h1>
+    <div class="filtros">
+      <label for="categoria">Filtrar por categoría:</label>
+      <select id="categoria">
+        <option value="all">Todas</option>
+      </select>
+    </div>
+    <div class="carrito-icono" onclick="mostrarCarrito()">🛒 <span id="contador-carrito">0</span></div>
+  </header>
+
+  <main>
+    <section id="productos" class="grid-productos"></section>
+  </main>
+
+  <div id="modal-detalle" class="modal hidden"></div>
+  <div id="modal-carrito" class="modal hidden"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

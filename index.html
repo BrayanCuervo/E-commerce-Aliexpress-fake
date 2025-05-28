@@ -1,30 +1,151 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tienda E-Commerce</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Falabella Clone</title>
+   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Aliexpress</h1>
-    <div class="filtros">
-      <label for="categoria">Filtrar por categoría:</label>
-      <select id="categoria">
-        <option value="all">Todas</option>
-      </select>
+    <header class="header">
+        <div class="header-content">
+            <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+            <div class="logo">falabella.com</div>
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar productos..." id="search-input">
+                <button class="search-btn" onclick="searchProducts()">🔍</button>
+            </div>
+            <button class="cart-btn" onclick="mostrarCarrito()">
+                🛒 Carrito
+                <span class="cart-count" id="contador-carrito">0</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>Categorías</h3>
+            <button class="close-sidebar" onclick="toggleSidebar()">✕</button>
+        </div>
+        <div class="categories" id="categories">
+            <div class="category-item active" onclick="filterByCategory('all')">Todas las categorías</div>
+        </div>
     </div>
-    <div class="carrito-icono" onclick="mostrarCarrito()">🛒 <span id="contador-carrito">0</span></div>
-  </header>
 
-  <main>
-    <section id="productos" class="grid-productos"></section>
-  </main>
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
-  <div id="modal-detalle" class="modal hidden"></div>
-  <div id="modal-carrito" class="modal hidden"></div>
+    <section class="banner-section">
+        <div class="carousel-container">
+            <div class="carousel-slide active">
+                <img src="./img/carrusel1.avif" alt="Black Friday">
+                <div class="carousel-content">
+                    <h2>BLACK FRIDAY</h2>
+                    <p>Ofertas irresistibles hasta 70% de descuento</p>
+                    <button class="cta-button">Ver todas las ofertas</button>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <img src="./img/carrusel2.avif" alt="Tecnología">
+                <div class="carousel-content">
+                    <h2>TECNOLOGÍA</h2>
+                    <p>Los últimos gadgets y dispositivos electrónicos</p>
+                    <button class="cta-button">Explorar tecnología</button>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <img src="./img/carrusel3.avif" alt="Moda">
+                <div class="carousel-content">
+                    <h2>MODA</h2>
+                    <p>Las últimas tendencias en ropa y accesorios</p>
+                    <button class="cta-button">Ver colección</button>
+                </div>
+            </div>
+            <div class="carousel-nav">
+                <div class="nav-dot active" onclick="goToSlide(0)"></div>
+                <div class="nav-dot" onclick="goToSlide(1)"></div>
+                <div class="nav-dot" onclick="goToSlide(2)"></div>
+            </div>
+        </div>
+    </section>
 
-  <script src="script.js"></script>
+    <section class="products-section">
+        <h2 class="section-title">Productos Destacados</h2>
+        <div class="products-grid" id="productos"></div>
+    </section>
+
+    <div class="modal" id="modal-detalle">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Detalle del Producto</h2>
+                <button class="close-modal" onclick="cerrarModal('modal-detalle')">✕</button>
+            </div>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-carrito">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Carrito de Compras</h2>
+                <button class="close-modal" onclick="cerrarModal('modal-carrito')">✕</button>
+            </div>
+            <div id="cart-body"></div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-pago">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Finalizar Compra</h2>
+                <button class="close-modal" onclick="cerrarModal('modal-pago')">✕</button>
+            </div>
+            <div id="payment-body"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contáctanos</h3>
+                <p>📧 info@falabella.com</p>
+                <p>📞 +1 (555) 123-4567</p>
+                <p>📍 Av. Principal 123, Ciudad</p>
+                <p>🕒 Lun - Vie: 9:00 AM - 6:00 PM</p>
+            </div>
+            <div class="footer-section">
+                <h3>Servicio al Cliente</h3>
+                <a href="#">Centro de Ayuda</a>
+                <a href="#">Devoluciones</a>
+                <a href="#">Envíos</a>
+                <a href="#">Garantías</a>
+                <a href="#">Términos y Condiciones</a>
+            </div>
+            <div class="footer-section">
+                <h3>Mi Cuenta</h3>
+                <a href="#">Iniciar Sesión</a>
+                <a href="#">Crear Cuenta</a>
+                <a href="#">Mis Pedidos</a>
+                <a href="#">Lista de Deseos</a>
+                <a href="#">Cupones</a>
+            </div>
+            <div class="footer-section">
+                <h3>Síguenos</h3>
+                <p>Mantente conectado con nosotros</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">📘</a>
+                    <a href="#" class="social-link">📷</a>
+                    <a href="#" class="social-link">🐦</a>
+                    <a href="#" class="social-link">📺</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Falabella. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="script.js">
+        
+    </script>
 </body>
 </html>
